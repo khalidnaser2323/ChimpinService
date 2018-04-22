@@ -151,8 +151,15 @@ export const payHttps = functions.https.onRequest((req, res) => {
 });
 
 export const paymentSucessCallback = functions.https.onRequest((req, res) => {
-    if (req && req.params) {
-        console.log("Success Payment callback");
-        console.log(req.params);
+    if (req && req.query) {
+        console.log("Success Payment callback params");
+        console.log(req.query);
+        res.statusCode = 200;
+        res.send(req.query);
     }
+    else {
+        res.statusCode = 400;
+        res.send({ "errorDesc": "Request doesn't have query params"});
+    }
+
 });
